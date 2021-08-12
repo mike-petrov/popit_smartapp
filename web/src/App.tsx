@@ -43,7 +43,6 @@ export const App: FC = memo(() => {
       }
     });
 
-    const colors = ["r", "o", "y", "g", "b", "p"];
     const popit:any = document.getElementById("popit");
 
     const sound = new Audio(
