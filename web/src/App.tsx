@@ -42,74 +42,67 @@ export const App: FC = memo(() => {
         dispatch(action);
       }
     });
-
-    const popit:any = document.getElementById("popit");
-
-    const sound = new Audio(
-      "https://freesound.org/data/previews/399/399934_1676145-lq.mp3"
-    );
-
-    popit.onclick = function (event:any) {
-      const target = event.target;
-      if (!target.matches(".circle")) {
-        return;
-      }
-
-      sound.pause();
-      sound.currentTime = 0;
-      sound.play();
-      if ("vibrate" in navigator) {
-        navigator.vibrate(100);
-      }
-      target.classList.toggle("pressed");
-    };
   }, []);
+
+  const onPopIt = (event:any) => {
+    const sound = new Audio("./popit.mp3");
+
+    const target = event.target;
+    if (!target.matches(".circle")) {
+      return;
+    }
+
+    sound.pause();
+    sound.currentTime = 0;
+    sound.play();
+    target.classList.toggle("pressed");
+  }
 
   return (
     <main className="container">
       <div className="title">POP IT</div>
       <div id="popit" className="popit">
         <div className="r">
-          <button className="circle r" />
-          <button className="circle r" />
-          <button className="circle r" />
-          <button className="circle r" />
-          <button className="circle r" />
+          <button onClick={onPopIt} className="circle r" />
+          <button onClick={onPopIt} className="circle r" />
+          <button onClick={onPopIt} className="circle r" />
+          <button onClick={onPopIt} className="circle r" />
+          <button onClick={onPopIt} className="circle r" />
         </div>
         <div className="o">
-          <button className="circle o" />
-          <button className="circle o" />
-          <button className="circle o" />
-          <button className="circle o" />
-          <button className="circle o" />
+          <button onClick={onPopIt} className="circle o" />
+          <button onClick={onPopIt} className="circle o" />
+          <button onClick={onPopIt} className="circle o" />
+          <button onClick={onPopIt} className="circle o" />
+          <button onClick={onPopIt} className="circle o" />
         </div>
         <div className="y">
-          <button className="circle y" />
-          <button className="circle y" />
-          <button className="circle y" />
-          <button className="circle y" />
-          <button className="circle y" />
+          <button onClick={onPopIt} className="circle y" />
+          <button onClick={onPopIt} className="circle y" />
+          <button onClick={onPopIt} className="circle y" />
+          <button onClick={onPopIt} className="circle y" />
+          <button onClick={onPopIt} className="circle y" />
         </div>
         <div className="g">
-          <button className="circle g" />
-          <button className="circle g" />
-          <button className="circle g" />
-          <button className="circle g" />
-          <button className="circle g" />
+          <button onClick={onPopIt} className="circle g" />
+          <button onClick={onPopIt} className="circle g" />
+          <button onClick={onPopIt} className="circle g" />
+          <button onClick={onPopIt} className="circle g" />
+          <button onClick={onPopIt} className="circle g" />
         </div>
         <div className="b">
-          <button className="circle b" />
-          <button className="circle b" />
-          <button className="circle b" />
-          <button className="circle b" />
-          <button className="circle b" />
+          <button onClick={onPopIt} className="circle b" />
+          <button onClick={onPopIt} className="circle b" />
+          <button onClick={onPopIt} className="circle b" />
+          <button onClick={onPopIt} className="circle b" />
+          <button onClick={onPopIt} className="circle b" />
         </div>
         <div className="p">
-          <button className="circle p" />
-          <button className="circle p" />
-          <button className="circle p" />
-          <button className="circle p" />
-          <button className="circle p" />
+          <button onClick={onPopIt} className="circle p" />
+          <button onClick={onPopIt} className="circle p" />
+          <button onClick={onPopIt} className="circle p" />
+          <button onClick={onPopIt} className="circle p" />
+          <button onClick={onPopIt} className="circle p" />
         </div>
       </div>
     </main>

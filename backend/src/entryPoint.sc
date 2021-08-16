@@ -33,9 +33,6 @@ theme: /
         else:
             a: Это попыт! Клик на пупырки дает райское наслаждение.
 
-        buttons:
-            "Начать"
-
     state: Fallback
         event!: noMatch
         a: Я не понимаю.
