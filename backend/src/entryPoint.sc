@@ -35,4 +35,12 @@ theme: /
 
     state: Fallback
         event!: noMatch
-        a: Я не понимаю.
+        script:
+            $temp.appeal = $request.rawRequest.payload.character.appeal;
+
+        if: $temp.appeal == "official"
+            a: Пока не могу выполнить такую команду, давайте лопать пупырки и наслаждаться.
+        elseif: $temp.appeal == "no_official"
+            a: Пока не могу выполнить такую команду, давай лопать пупырки и наслаждаться.
+        else:
+            a: Пока не могу выполнить такую команду, лучше лопать пупырки и наслаждаться.
