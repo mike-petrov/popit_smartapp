@@ -84,9 +84,98 @@ button:focus {
     background-color: #bca3f6;
 }
 
+.btn {
+    color: #fff;
+    background: #00adf5;
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    border: 0;
+}
+
+.btn:focus,
+.btn:hover {
+    background: #005a7f;
+}
+
+/* popups */
+.popup {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    bottom: 0;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.popup_content {
+    position: absolute;
+    background: #fff;
+    border-radius: 8px;
+    z-index: 101;
+    padding: 20px;
+    min-width: 280px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup_title {
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+    padding: 0 15px 15px 15px;
+    color: #3cc1f6;
+}
+
+.popup_text {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 10px 15px 10px;
+    color: #00729f;
+}
+
+.popup_content img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin-left: 20px;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 0 0 150px 0;
+    }
+
+    .popup_title {
+        font-size: 24px;
+        padding: 5px 10px 10px 10px;
+    }
+
+    .popup_text {
+        font-size: 18px;
+        padding: 0 10px 10px 10px;
+    }
+
+
+    .popup_content {
+        padding: 5px 10px 10px 10px;
+        min-width: 200px;
+        max-width: 300px;
+        border-radius: 6px;
     }
 }
 
@@ -116,6 +205,28 @@ button:focus {
     .pressed {
         box-shadow: inset 8px 8px 8px rgb(0 0 0 / 25%), inset -8px -8px 8px rgb(255 255 255 / 30%);
     }
+
+    .btn {
+        padding: 15px;
+        font-size: 30px;
+        border-radius: 6px;
+    }
+
+    .popup_title {
+        font-size: 50px;
+        padding: 0 20px 25px 20px;
+    }
+
+    .popup_text {
+        font-size: 30px;
+        padding: 0 20px 25px 20px;
+    }
+
+    .popup_content {
+        padding: 20px 40px 40px 40px;
+        max-width: 800px;
+        border-radius: 16px;
+    }
 }
 
 @media (min-height: 1800px) {
@@ -136,4 +247,28 @@ button:focus {
     .pressed {
         box-shadow: inset 8px 8px 8px rgb(0 0 0 / 25%), inset -8px -8px 8px rgb(255 255 255 / 30%);
     }
+
+    .btn {
+        padding: 15px;
+        font-size: 30px;
+        border-radius: 6px;
+    }
+
+    .popup_title {
+        font-size: 50px;
+        padding: 0 20px 25px 20px;
+    }
+
+    .popup_text {
+        font-size: 34px;
+        padding: 0 20px 25px 20px;
+    }
+
+
+    .popup_content {
+        padding: 20px 40px 40px 40px;
+        max-width: 900px;
+        border-radius: 16px;
+    }
+
 }

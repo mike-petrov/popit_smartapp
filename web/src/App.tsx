@@ -4,6 +4,7 @@ import React, {
   useReducer,
   useRef,
   useEffect,
+  useState,
 } from "react";
 import {
   createSmartappDebugger,
@@ -14,6 +15,7 @@ import "./App.css";
 
 import { reducer } from "./store";
 
+const sound = new Audio("./popit.mp3");
 const initializeAssistant = (getState: any) => {
   if (process.env.NODE_ENV === "development") {
     return createSmartappDebugger({
@@ -30,6 +32,8 @@ export const App: FC = memo(() => {
   const [appState, dispatch] = useReducer(reducer, {
     popit: 0,
   });
+  const [clicks, setClicks] = useState(0);
+  const [popup, setPopup] = useState('');
 
   const assistantStateRef = useRef<AssistantAppState>();
   const assistantRef = useRef<ReturnType<typeof createAssistant>>();
@@ -42,24 +46,51 @@ export const App: FC = memo(() => {
         dispatch(action);
       }
     });
+
+    setInterval(() => {
+      setClicks(0);
+    }, 2000);
   }, []);
 
   const onPopIt = (event:any) => {
-    const sound = new Audio("./popit.mp3");
-
-    const target = event.target;
-    if (!target.matches(".circle")) {
-      return;
+    setClicks(clicks => clicks + 1);
+    if (clicks > 5) {
+      setPopup('soFast');
+    } else {
+      const target = event.target;
+      if (!target.matches(".circle")) {
+        return;
+      }
+  
+      // sound.pause();
+      // sound.currentTime = 0;
+      // sound.play();
+      let element: any = document.getElementById('bells') as HTMLElement;
+      element.currentTime = 0;
+      element.play();
+  
+      target.classList.toggle("pressed");
     }
-
-    sound.pause();
-    sound.currentTime = 0;
-    sound.play();
-    target.classList.toggle("pressed");
   }
 
   return (
     <main className="container">
+      <audio id="bells" src="popit.mp3" />
+      {popup === 'soFast' && (
+        <div className="popup">
+    			<div className="popup_content">
+            <div className="popup_title">Воу воу не так быстро</div>
+            <div className="popup_text">Попыт направлен на ycпoкoeние, paccлaблeние, cнятие тpeвoжнocти</div>
+            <button
+              className="btn"
+              onClick={() => {
+                setPopup('');
+                setClicks(0);
+              }}
+            >Хорошо</button>
+    			</div>
+    		</div>
+      )}
       <div className="title">POP IT</div>
       <div id="popit" className="popit">
         <div className="r">
