@@ -15,12 +15,24 @@ import "./App.css";
 
 import { reducer } from "./store";
 
-const sound = new Audio("./popit.mp3");
+declare global {
+  interface Window {
+    SberDevicesAdSDK:any;
+  }
+}
+
+const { initWithAssistant, runVideoAd, isInited } = window.SberDevicesAdSDK;
+
+const IS_DEVELOPMENT = process.env.NODE_ENV === "development";
+const DEV_TOKEN:any = process.env.REACT_APP_DEV_TOKEN;
+const DEV_PHRASE:any = process.env.REACT_APP_DEV_PHRASE;
+
+// const sound = new Audio("./popit.mp3");
 const initializeAssistant = (getState: any) => {
-  if (process.env.NODE_ENV === "development") {
+  if (IS_DEVELOPMENT) {
     return createSmartappDebugger({
-      token: process.env.REACT_APP_TOKEN ?? "",
-      initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
+      token: DEV_TOKEN,
+      initPhrase: DEV_PHRASE,
       getState,
     });
   }
@@ -39,12 +51,19 @@ export const App: FC = memo(() => {
   const assistantRef = useRef<ReturnType<typeof createAssistant>>();
 
   useEffect(() => {
+
     assistantRef.current = initializeAssistant(() => assistantStateRef.current);
 
     assistantRef.current.on("data", ({ action }: any) => {
       if (action) {
         dispatch(action);
       }
+    });
+
+    initWithAssistant({
+      assistant: assistantRef.current,
+      onSuccess: () => console.log('AdSdk Inited'),
+      onError: (err:any) => console.log('AdSdk Init Error', err),
     });
 
     setInterval(() => {
@@ -86,6 +105,13 @@ export const App: FC = memo(() => {
               onClick={() => {
                 setPopup('');
                 setClicks(0);
+                if (isInited()) {
+                  runVideoAd({
+                    onSuccess: () => console.log('Banner success'),
+                    onError: (err:any) => console.log('Banner Error', err),
+                    mute: false,
+                  });
+                }
               }}
             >Хорошо</button>
     			</div>

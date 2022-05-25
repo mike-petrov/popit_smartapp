@@ -25,6 +25,31 @@ theme: /
         script:
             log($jsapi.cailaService.getCurrentClassifierToken());
             $temp.appeal = $request.rawRequest.payload.character.appeal;
+            var ctx = $jsapi.context();
+            var req = ctx.request.rawRequest;
+            
+            $response.replies = $response.replies || [];
+            
+            $response.replies.push({
+                type: 'raw',
+                device: {},
+                body: {
+                    items: [{
+                        command: {
+                            type: 'smart_app_data',
+                            smart_app_data: {
+                                type: 'sub',
+                                payload: {
+                                    sub: req.uuid.sub,
+                                    projectName: req.payload.projectName,
+                                    device: req.payload.device,
+                                    app_info: req.payload.app_info,
+                                }
+                            }
+                        }
+                    }]
+                }
+            })
 
         if: $temp.appeal == "official"
             a: Это попыт! Тыкайте на пупырки и наслаждайтесь.
