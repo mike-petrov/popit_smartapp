@@ -10,18 +10,10 @@ import {
   createSmartappDebugger,
   createAssistant,
   AssistantAppState,
-} from "@sberdevices/assistant-client";
+} from "@salutejs/client";
 import "./App.css";
 
 import { reducer } from "./store";
-
-declare global {
-  interface Window {
-    SberDevicesAdSDK:any;
-  }
-}
-
-const { initWithAssistant, runVideoAd, isInited } = window.SberDevicesAdSDK;
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === "development";
 const DEV_TOKEN:any = process.env.REACT_APP_DEV_TOKEN;
@@ -60,12 +52,6 @@ export const App: FC = memo(() => {
       }
     });
 
-    initWithAssistant({
-      assistant: assistantRef.current,
-      onSuccess: () => console.log('AdSdk Inited'),
-      onError: (err:any) => console.log('AdSdk Init Error', err),
-    });
-
     setInterval(() => {
       setClicks(0);
     }, 2000);
@@ -80,14 +66,14 @@ export const App: FC = memo(() => {
       if (!target.matches(".circle")) {
         return;
       }
-  
+
       // sound.pause();
       // sound.currentTime = 0;
       // sound.play();
       let element: any = document.getElementById('bells') as HTMLElement;
       element.currentTime = 0;
       element.play();
-  
+
       target.classList.toggle("pressed");
     }
   }
@@ -105,13 +91,6 @@ export const App: FC = memo(() => {
               onClick={() => {
                 setPopup('');
                 setClicks(0);
-                if (isInited()) {
-                  runVideoAd({
-                    onSuccess: () => console.log('Banner success'),
-                    onError: (err:any) => console.log('Banner Error', err),
-                    mute: false,
-                  });
-                }
               }}
             >Хорошо</button>
     			</div>
